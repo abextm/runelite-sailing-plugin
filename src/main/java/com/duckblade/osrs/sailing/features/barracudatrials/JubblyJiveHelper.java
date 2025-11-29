@@ -18,6 +18,7 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
+import net.runelite.api.Perspective;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameTick;
@@ -30,6 +31,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
 @Singleton
@@ -159,14 +161,42 @@ public class JubblyJiveHelper
 				continue;
 			}
 
+			var objPos = obj.getLocalLocation();
+			int wvid = client.getLocalPlayer().getWorldView().getId();
+			var boatPos = client.getTopLevelWorldView().worldEntities().byIndex(wvid)
+				.getTargetLocation();
+
+			int dx = objPos.getX() - boatPos.getX();
+			int dy = objPos.getY() - boatPos.getY();
+
+			int sz = 14 * 128 + 64;
+			boolean inside = dx > -sz && dx <= sz && dy > -sz && dy <= sz;
+
+			var poly = Perspective.getCanvasTileAreaPoly(client, objPos, 29);
+			if (poly != null)
+			{
+				OverlayUtil.renderPolygon(graphics, poly, inside ? Color.GREEN : Color.RED);
+			}
+
 			Shape convexHull = obj.getConvexHull();
 			if (convexHull != null)
 			{
 				graphics.setStroke(new BasicStroke(2));
 				graphics.setColor(new Color(0, 0, 0, 50));
 				graphics.fill(convexHull);
-				graphics.setColor(OUTCROP_HIGHLIGHT_COLOURS.get(obj.getId()));
+				var color = OUTCROP_HIGHLIGHT_COLOURS.get(obj.getId());
+				if (inside)
+				{
+					color = color.darker().darker();
+				}
+				graphics.setColor(color);
 				graphics.draw(convexHull);
+
+				graphics.setColor(Color.BLACK);
+				var pt = obj.getCanvasTextLocation(graphics, "t", 0);
+
+				int dist = Math.max(Math.abs(dx), Math.abs(dy));
+				graphics.drawString("" + (dist / 128.), pt.getX(), pt.getY());
 			}
 		}
 

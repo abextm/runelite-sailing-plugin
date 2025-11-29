@@ -33,7 +33,7 @@ public class TrueTileIndicator
 	@Override
 	public boolean isEnabled(SailingConfig config)
 	{
-		indicatorColor = new Color(128, 128, 128, 128);
+		indicatorColor = new Color(128, 128, 128);
 		return true;
 	}
 
@@ -82,20 +82,22 @@ public class TrueTileIndicator
 			wec.getBoundsX() + boatHalfWidth,
 			wec.getBoundsX() + boatHalfWidth,
 			wec.getBoundsX() - boatHalfWidth,
-			wec.getBoundsX() - boatHalfWidth
+			wec.getBoundsX() - boatHalfWidth,
+			0
 		};
 
 		float[] localCoordsY = new float[]{
 			wec.getBoundsY() - boatHalfHeight,
 			wec.getBoundsY() + boatHalfHeight,
 			wec.getBoundsY() + boatHalfHeight,
-			wec.getBoundsY() - boatHalfHeight
+			wec.getBoundsY() - boatHalfHeight,
+			0
 		};
 
-		float[] localCoordsZ = new float[]{0, 0, 0, 0};
+		float[] localCoordsZ = new float[]{0, 0, 0, 0, 0};
 
-		int[] canvasXs = new int[4];
-		int[] canvasYs = new int[4];
+		int[] canvasXs = new int[5];
+		int[] canvasYs = new int[5];
 
 		Perspective.modelToCanvas(
 			client,
@@ -118,5 +120,8 @@ public class TrueTileIndicator
 		canvasPoly.addPoint(canvasXs[2], canvasYs[2]);
 		canvasPoly.addPoint(canvasXs[3], canvasYs[3]);
 		g.draw(canvasPoly);
+
+		g.setColor(Color.RED);
+		g.drawRect(canvasXs[4], canvasYs[4], 1, 1);
 	}
 }

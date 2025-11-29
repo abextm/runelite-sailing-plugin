@@ -60,8 +60,6 @@ public class BarracudaTrialHelper
 
 	private int trialDBRow = -1;
 	private int trialRank;
-	private boolean hasSupplyBoatItem;
-
 	private Trial activeTrial;
 
 	@Inject
@@ -119,7 +117,6 @@ public class BarracudaTrialHelper
 				var args = ev.getScriptEvent().getArguments();
 
 				trialDBRow = (Integer) args[1];
-				hasSupplyBoatItem = 1 == (Integer) args[5];
 				trialRank = (Integer) args[6];
 			}
 			catch (Exception e)
@@ -137,6 +134,36 @@ public class BarracudaTrialHelper
 		{
 			return null;
 		}
+
+		{
+			var obj = objects.get(ObjectID.SAILING_BT_JUBBLY_JIVE_TOAD_SUPPLIES_PARENT);
+			if (obj != null)
+			{
+				var objwe = client.getTopLevelWorldView().worldEntities().byIndex(obj.getWorldView().getId());
+				//var objPos = objwe.transformToMainWorld(obj.getLocalLocation());
+				var objPos = objwe.getLocalLocation().dx(128);
+
+				g.setColor(Color.RED);
+				g.drawString(objwe.getWorldView().getScene().getTiles()[0].length + " " + objwe.getWorldView().getScene().getTiles()[0][0].length, 200, 200);
+
+				int wvid = client.getLocalPlayer().getWorldView().getId();
+				var boatPos = client.getTopLevelWorldView().worldEntities().byIndex(wvid)
+					.getTargetLocation();
+
+				int dx = objPos.getX() - boatPos.getX();
+				int dy = objPos.getY() - boatPos.getY();
+
+				int sz = 14 * 128 + 64;
+				boolean inside = dx > -sz && dx <= sz && dy > -sz && dy <= sz;
+
+				var poly = Perspective.getCanvasTileAreaPoly(client, objPos, (sz * 2) / 128);
+				if (poly != null)
+				{
+					OverlayUtil.renderPolygon(g, poly, inside ? Color.GREEN : Color.RED);
+				}
+			}
+		}
+
 
 		Trial trial = null;
 		if (config.barracudaShowPath())
