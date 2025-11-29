@@ -1,5 +1,6 @@
 package com.duckblade.osrs.sailing.debugplugin;
 
+import com.duckblade.osrs.sailing.features.barracudatrials.BarracudaTrialRouteTool;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import java.util.Arrays;
@@ -33,6 +34,9 @@ public class SailingDebugPlugin extends Plugin
 	private SailingDebugBoatInfoOverlay boatInfoOverlayPanel;
 
 	@Inject
+	private BarracudaTrialRouteTool barracudaTrialRouteTool;
+
+	@Inject
 	private SailingDebugLocalBoatInfoOverlayPanel localBoatInfoOverlayPanel;
 
 	@Inject
@@ -48,6 +52,7 @@ public class SailingDebugPlugin extends Plugin
 	{
 		components = Arrays.asList(
 			boatInfoOverlayPanel,
+			barracudaTrialRouteTool,
 			localBoatInfoOverlayPanel,
 			tlwpOverlay,
 			facilitiesOverlay
