@@ -2,9 +2,9 @@ package com.duckblade.osrs.sailing.module;
 
 import com.duckblade.osrs.sailing.SailingConfig;
 import com.duckblade.osrs.sailing.features.reversebeep.ReverseBeep;
+import com.duckblade.osrs.sailing.features.barracudatrials.BarracudaTrialHelper;
 import com.duckblade.osrs.sailing.features.barracudatrials.HidePortalTransitions;
 import com.duckblade.osrs.sailing.features.barracudatrials.JubblyJiveHelper;
-import com.duckblade.osrs.sailing.features.barracudatrials.LostCargoHighlighter;
 import com.duckblade.osrs.sailing.features.barracudatrials.TemporTantrumHelper;
 import com.duckblade.osrs.sailing.features.barracudatrials.splits.BarracudaSplitsChatMessage;
 import com.duckblade.osrs.sailing.features.barracudatrials.splits.BarracudaSplitsFileWriter;
@@ -68,6 +68,7 @@ public class SailingModule extends AbstractModule
 		BarracudaSplitsChatMessage barracudaSplitsChatMessage,
 		BarracudaSplitsOverlayPanel barracudaSplitsOverlayPanel,
 		BarracudaSplitsFileWriter barracudaSplitsFileWriter,
+		BarracudaTrialHelper barracudaTrialHelper,
 		BoatTracker boatTracker,
 		CargoHoldTracker cargoHoldTracker,
 		Castaway castaway,
@@ -85,7 +86,6 @@ public class SailingModule extends AbstractModule
 		JubblyJiveHelper jubblyJiveHelper,
 		TemporTantrumHelper temporTantrumHelper,
 		LightningCloudsOverlay lightningCloudsOverlay,
-		LostCargoHighlighter lostCargoHighlighter,
 		LostShipment lostShipment,
 		LuffOverlay luffOverlay,
 		CrystalExtractorHighlight crystalExtractorHighlight,
@@ -111,6 +111,7 @@ public class SailingModule extends AbstractModule
 			.add(barracudaSplitsChatMessage)
 			.add(barracudaSplitsOverlayPanel)
 			.add(barracudaSplitsFileWriter)
+			.add(barracudaTrialHelper)
 			.add(boatTracker)
 			.add(castaway)
 			.add(clueCasket)
@@ -127,7 +128,6 @@ public class SailingModule extends AbstractModule
 			.add(jubblyJiveHelper)
 			.add(temporTantrumHelper)
 			.add(lightningCloudsOverlay)
-			.add(lostCargoHighlighter)
 			.add(lostShipment)
 			.add(luffOverlay)
 			.add(crystalExtractorHighlight)

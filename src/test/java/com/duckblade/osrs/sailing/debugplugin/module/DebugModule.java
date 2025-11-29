@@ -7,6 +7,7 @@ import com.duckblade.osrs.sailing.debugplugin.features.CrewmateInfoOverlay;
 import com.duckblade.osrs.sailing.debugplugin.features.FacilitiesOverlay;
 import com.duckblade.osrs.sailing.debugplugin.features.LocalBoatInfoOverlayPanel;
 import com.duckblade.osrs.sailing.debugplugin.features.TlwpOverlay;
+import com.duckblade.osrs.sailing.features.barracudatrials.BarracudaTrialRouteTool;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -27,6 +28,7 @@ public class DebugModule extends AbstractModule
 
 	@Provides
 	Set<DebugLifecycleComponent> lifecycleComponents(
+		BarracudaTrialRouteTool barracudaTrialRouteTool,
 		BoatInfoOverlay boatInfoOverlay,
 		CourierTaskOverlayPanel courierTaskOverlayPanel,
 		CrewmateInfoOverlay crewmateInfoOverlay,
@@ -36,6 +38,7 @@ public class DebugModule extends AbstractModule
 	)
 	{
 		var builder = ImmutableSet.<DebugLifecycleComponent>builder()
+			.add(barracudaTrialRouteTool)
 			.add(boatInfoOverlay)
 			.add(courierTaskOverlayPanel)
 			.add(crewmateInfoOverlay)

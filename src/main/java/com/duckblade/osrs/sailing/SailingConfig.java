@@ -558,12 +558,12 @@ public interface SailingConfig extends Config
 	@ConfigItem(
 		keyName = "barracudaHighlightLostCratesColour",
 		name = "Crate Colour",
-		description = "The colour to highlight lost crates.",
+		description = "The color to highlight lost crates.",
 		section = SECTION_BARRACUDA_TRIALS,
 		position = 2
 	)
 	@Alpha
-	default Color barracudaHighlightLostCratesColour()
+	default Color barracudaHighlightLostCratesColor()
 	{
 		return Color.ORANGE;
 	}
@@ -626,6 +626,31 @@ public interface SailingConfig extends Config
 	default boolean barracudaSplitsOverlayPanel()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "barracudaShowPath",
+		name = "Highlight Path",
+		description = "Highlight pillars/boats that need to be interacted with during Barracuda Trials.",
+		section = SECTION_BARRACUDA_TRIALS,
+		position = 8
+	)
+	default boolean barracudaShowPath()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "barracudaPathColor",
+		name = "Path Color",
+		description = "The color to draw the path.",
+		section = SECTION_BARRACUDA_TRIALS,
+		position = 9
+	)
+	@Alpha
+	default Color barracudaPathColor()
+	{
+		return Color.BLUE;
 	}
 
 	enum BarracudaSplitsToFileMode
